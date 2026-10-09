@@ -1,0 +1,47 @@
+@model MonHoc
+
+@{
+    ViewData["Title"] = "Chi tiết Môn học";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-info-circle text-info me-2"></i>Chi Tiết Môn Học</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Quản lý Môn học</a></li>
+        <li class="breadcrumb-item active">@Model.TenMon</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <i class="fas fa-book me-1"></i> Thông tin Môn học
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-muted">ID:</dt>
+                        <dd class="col-sm-8 fw-bold">@Model.Id</dd>
+
+                        <dt class="col-sm-4 text-muted">Mã môn học:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-secondary fs-6">@Model.MaMon</span></dd>
+
+                        <dt class="col-sm-4 text-muted">Tên môn học:</dt>
+                        <dd class="col-sm-8 fs-5 fw-bold text-dark">@Model.TenMon</dd>
+
+                        <dt class="col-sm-4 text-muted">Số tín chỉ:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-primary fs-6">@Model.SoTinChi Tín chỉ</span></dd>
+                    </dl>
+                </div>
+                <div class="card-footer bg-white d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left me-1"></i> Quay lại
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-sm text-dark">
+                        <i class="fas fa-edit me-1"></i> Chỉnh sửa
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

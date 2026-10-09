@@ -1,0 +1,51 @@
+@model Lop
+
+@{
+    ViewData["Title"] = "Xóa Lớp";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-trash-alt text-danger me-2"></i>Xác Nhận Xóa Lớp</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Quản lý Lớp</a></li>
+        <li class="breadcrumb-item active">Xóa</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-md-6 col-lg-5">
+            <div class="card border-danger shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <i class="fas fa-exclamation-triangle me-1"></i> Cảnh báo: Bạn có chắc chắn muốn xóa lớp này?
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-muted">Mã lớp:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-secondary fs-6">@Model.MaLop</span></dd>
+
+                        <dt class="col-sm-4 text-muted">Tên lớp:</dt>
+                        <dd class="col-sm-8 fw-bold">@Model.TenLop</dd>
+
+                        <dt class="col-sm-4 text-muted">Khoa:</dt>
+                        <dd class="col-sm-8">@(Model.Khoa?.TenKhoa ?? "Chưa rõ")</dd>
+
+                        <dt class="col-sm-4 text-muted">Số SV:</dt>
+                        <dd class="col-sm-8 text-danger fw-bold">@(Model.SinhViens?.Count ?? 0) sinh viên (sẽ bị xóa kèm)</dd>
+                    </dl>
+
+                    <form asp-action="Delete" class="mt-4">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-1"></i> Hủy bỏ
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash me-1"></i> Xác nhận Xóa
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

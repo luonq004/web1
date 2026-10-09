@@ -1,0 +1,53 @@
+@model Lab2.Models.Entities.LopHocPhan
+@{
+    ViewData["Title"] = "Cập nhật Lớp học phần";
+}
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-edit text-warning me-2"></i>Cập nhật Lớp Học Phần</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Quản lý Lớp học phần</a></li>
+        <li class="breadcrumb-item active">Cập nhật</li>
+    </ol>
+    <div class="row">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <i class="fas fa-layer-group me-1"></i> Thông tin Lớp học phần
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="mb-3">
+                            <label asp-for="MonHocId" class="form-label fw-bold">Môn học</label>
+                            <select asp-for="MonHocId" class="form-select" asp-items="ViewBag.MonHocId"></select>
+                            <span asp-validation-for="MonHocId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="HocKyId" class="form-label fw-bold">Học kỳ</label>
+                            <select asp-for="HocKyId" class="form-select" asp-items="ViewBag.HocKyId"></select>
+                            <span asp-validation-for="HocKyId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="GiangVien" class="form-label fw-bold">Giảng viên</label>
+                            <input asp-for="GiangVien" class="form-control" />
+                            <span asp-validation-for="GiangVien" class="text-danger"></span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-1"></i> Quay lại
+                            </a>
+                            <button type="submit" class="btn btn-warning text-dark fw-bold">
+                                <i class="fas fa-save me-1"></i> Cập nhật
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

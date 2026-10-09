@@ -1,0 +1,47 @@
+@model Lab2.Models.Entities.Diem
+@{
+    ViewData["Title"] = "Xóa điểm";
+}
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-trash text-danger me-2"></i>Xóa Điểm</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Quản lý Điểm</a></li>
+        <li class="breadcrumb-item active">Xóa</li>
+    </ol>
+    <div class="alert alert-danger shadow-sm">
+        <i class="fas fa-exclamation-triangle me-1"></i> Bạn có chắc chắn muốn xóa dữ liệu điểm này không?
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-danger">
+                <div class="card-header bg-danger text-white">
+                    <i class="fas fa-star me-1"></i> Chi tiết Điểm
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-muted">Đăng ký môn</dt>
+                        <dd class="col-sm-8 fw-bold">ID Đăng ký: @Html.DisplayFor(model => model.DangKyMon.Id)</dd>
+                        <dt class="col-sm-4 text-muted">Điểm QT</dt>
+                        <dd class="col-sm-8 fw-bold">@Html.DisplayFor(model => model.DiemQuaTrinh)</dd>
+                        <dt class="col-sm-4 text-muted">Điểm Thi</dt>
+                        <dd class="col-sm-8 fw-bold">@Html.DisplayFor(model => model.DiemThi)</dd>
+                        <dt class="col-sm-4 text-muted">Điểm TK</dt>
+                        <dd class="col-sm-8 fw-bold text-danger">@Html.DisplayFor(model => model.DiemTongKet)</dd>
+                    </dl>
+                </div>
+                <div class="card-footer bg-light d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Quay lại
+                    </a>
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <button type="submit" class="btn btn-danger fw-bold">
+                            <i class="fas fa-trash me-1"></i> Xác nhận xóa
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

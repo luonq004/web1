@@ -1,0 +1,177 @@
+@model PaginatedList<SinhVien>
+
+@{
+    ViewData["Title"] = "Quản lý Sinh viên";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-user-graduate text-info me-2"></i>Quản lý Sinh viên</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item active">Danh sách Sinh viên</li>
+    </ol>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-1"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-users me-1"></i>
+                <strong>Danh sách Sinh viên</strong> (@Model.TotalCount sinh viên)
+            </div>
+            <a asp-action="Create" class="btn btn-primary btn-sm">
+                <i class="fas fa-user-plus me-1"></i> Thêm sinh viên mới
+            </a>
+        </div>
+        <div class="card-body">
+            <!-- Form Tìm kiếm & Đa bộ lọc (Filter) -->
+            <form asp-action="Index" method="get" class="row g-2 mb-3 p-3 bg-light rounded border align-items-end">
+                <div class="col-md-3 col-sm-6">
+                    <label class="form-label small text-muted mb-1 fw-bold"><i class="fas fa-university me-1"></i>Khoa:</label>
+                    <select name="khoaId" class="form-select form-select-sm" asp-items="ViewBag.KhoaList" onchange="this.form.submit()">
+                        <option value="">-- Tất cả khoa --</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <label class="form-label small text-muted mb-1 fw-bold"><i class="fas fa-chalkboard me-1"></i>Lớp:</label>
+                    <select name="lopId" class="form-select form-select-sm" asp-items="ViewBag.LopList" onchange="this.form.submit()">
+                        <option value="">-- Tất cả lớp --</option>
+                    </select>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <label class="form-label small text-muted mb-1 fw-bold"><i class="fas fa-venus-mars me-1"></i>Giới tính:</label>
+                    <select name="gioiTinh" class="form-select form-select-sm" onchange="this.form.submit()">
+                        <option value="">-- Tất cả --</option>
+                        <option value="Nam" selected="@(ViewData["CurrentGioiTinh"]?.ToString() == "Nam")">Nam</option>
+                        <option value="Nữ" selected="@(ViewData["CurrentGioiTinh"]?.ToString() == "Nữ")">Nữ</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <label class="form-label small text-muted mb-1 fw-bold"><i class="fas fa-search me-1"></i>Từ khóa:</label>
+                    <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" 
+                           class="form-control form-control-sm" placeholder="Mã SV, họ tên, email..." />
+                </div>
+                <div class="col-md-1 col-sm-12 d-flex gap-1">
+                    <button type="submit" class="btn btn-primary btn-sm w-100" title="Tìm kiếm">
+                        <i class="fas fa-filter"></i> Lọc
+                    </button>
+                    @if (!string.IsNullOrEmpty((string)ViewData["CurrentFilter"]!) || ViewData["CurrentKhoaId"] != null || ViewData["CurrentLopId"] != null || !string.IsNullOrEmpty((string)ViewData["CurrentGioiTinh"]!))
+                    {
+                        <a asp-action="Index" class="btn btn-outline-secondary btn-sm" title="Xóa bộ lọc">
+                            <i class="fas fa-undo"></i>
+                        </a>
+                    }
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 70px;" class="text-center">STT</th>
+                            <th style="width: 120px;">Mã SV</th>
+                            <th>Họ và tên</th>
+                            <th style="width: 120px;">Ngày sinh</th>
+                            <th style="width: 100px;" class="text-center">Giới tính</th>
+                            <th>Email</th>
+                            <th>Lớp</th>
+                            <th>Khoa</th>
+                            <th style="width: 200px;" class="text-center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            int index = (Model.PageIndex - 1) * Model.PageSize + 1;
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">@index</td>
+                                    <td><span class="badge bg-primary fs-6">@item.MaSv</span></td>
+                                    <td class="fw-semibold">@item.HoTen</td>
+                                    <td>@item.NgaySinh.ToString("dd/MM/yyyy")</td>
+                                    <td class="text-center">
+                                        <span class="badge @(item.GioiTinh == "Nam" ? "bg-info text-dark" : "bg-danger")">
+                                            @item.GioiTinh
+                                        </span>
+                                    </td>
+                                    <td>@item.Email</td>
+                                    <td>
+                                        <span class="badge bg-secondary">@(item.Lop?.TenLop ?? "Chưa rõ")</span>
+                                    </td>
+                                    <td>@(item.Lop?.Khoa?.TenKhoa ?? "Chưa rõ")</td>
+                                    <td class="text-center">
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info text-white" title="Chi tiết">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning text-dark" title="Sửa">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" title="Xóa">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                index++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="9" class="text-center py-4 text-muted">
+                                    <i class="fas fa-info-circle me-1"></i> Không tìm thấy sinh viên nào phù hợp với điều kiện tìm kiếm.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Phân trang (Pagination) -->
+            @if (Model.TotalPages > 1)
+            {
+                <nav aria-label="Page navigation" class="mt-3">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                            <a class="page-link" asp-action="Index" 
+                               asp-route-pageNumber="@(Model.PageIndex - 1)"
+                               asp-route-khoaId="@ViewData["CurrentKhoaId"]"
+                               asp-route-lopId="@ViewData["CurrentLopId"]"
+                               asp-route-gioiTinh="@ViewData["CurrentGioiTinh"]"
+                               asp-route-searchString="@ViewData["CurrentFilter"]">
+                                <i class="fas fa-chevron-left"></i> Trước
+                            </a>
+                        </li>
+                        @for (int p = 1; p <= Model.TotalPages; p++)
+                        {
+                            <li class="page-item @(p == Model.PageIndex ? "active" : "")">
+                                <a class="page-link" asp-action="Index" 
+                                   asp-route-pageNumber="@p"
+                                   asp-route-khoaId="@ViewData["CurrentKhoaId"]"
+                                   asp-route-lopId="@ViewData["CurrentLopId"]"
+                                   asp-route-gioiTinh="@ViewData["CurrentGioiTinh"]"
+                                   asp-route-searchString="@ViewData["CurrentFilter"]">@p</a>
+                            </li>
+                        }
+                        <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                            <a class="page-link" asp-action="Index" 
+                               asp-route-pageNumber="@(Model.PageIndex + 1)"
+                               asp-route-khoaId="@ViewData["CurrentKhoaId"]"
+                               asp-route-lopId="@ViewData["CurrentLopId"]"
+                               asp-route-gioiTinh="@ViewData["CurrentGioiTinh"]"
+                               asp-route-searchString="@ViewData["CurrentFilter"]">
+                                Sau <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            }
+        </div>
+    </div>
+</div>

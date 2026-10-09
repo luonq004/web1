@@ -1,0 +1,112 @@
+@model Lop
+
+@{
+    ViewData["Title"] = "Chi tiết Lớp";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-info-circle text-info me-2"></i>Chi Tiết Lớp Học</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Quản lý Lớp</a></li>
+        <li class="breadcrumb-item active">@Model.TenLop</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-lg-5 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-info text-white">
+                    <i class="fas fa-chalkboard me-1"></i> Thông tin Lớp
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-muted">ID:</dt>
+                        <dd class="col-sm-8 fw-bold">@Model.Id</dd>
+
+                        <dt class="col-sm-4 text-muted">Mã lớp:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-secondary fs-6">@Model.MaLop</span></dd>
+
+                        <dt class="col-sm-4 text-muted">Tên lớp:</dt>
+                        <dd class="col-sm-8 fs-5 fw-bold text-dark">@Model.TenLop</dd>
+
+                        <dt class="col-sm-4 text-muted">Khoa:</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge bg-primary">@(Model.Khoa?.TenKhoa ?? "Chưa rõ")</span>
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted">Sĩ số:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-success">@(Model.SinhViens?.Count ?? 0) sinh viên</span></dd>
+                    </dl>
+                </div>
+                <div class="card-footer bg-white d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left me-1"></i> Quay lại
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-sm text-dark">
+                        <i class="fas fa-edit me-1"></i> Chỉnh sửa
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="fas fa-user-graduate me-1"></i>
+                        <strong>Danh sách sinh viên trong lớp</strong>
+                    </div>
+                    <a asp-controller="SinhVien" asp-action="Create" class="btn btn-outline-success btn-sm">
+                        <i class="fas fa-plus me-1"></i> Thêm sinh viên
+                    </a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Mã SV</th>
+                                    <th>Họ và tên</th>
+                                    <th>Giới tính</th>
+                                    <th>Email</th>
+                                    <th class="text-center">Xem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.SinhViens != null && Model.SinhViens.Any())
+                                {
+                                    @foreach (var sv in Model.SinhViens)
+                                    {
+                                        <tr>
+                                            <td><span class="badge bg-primary">@sv.MaSv</span></td>
+                                            <td class="fw-semibold">@sv.HoTen</td>
+                                            <td>
+                                                <span class="badge @(sv.GioiTinh == "Nam" ? "bg-info text-dark" : "bg-danger")">
+                                                    @sv.GioiTinh
+                                                </span>
+                                            </td>
+                                            <td>@sv.Email</td>
+                                            <td class="text-center">
+                                                <a asp-controller="SinhVien" asp-action="Details" asp-route-id="@sv.Id" class="btn btn-sm btn-outline-info">
+                                                    <i class="fas fa-arrow-right"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" class="text-center py-3 text-muted">
+                                            Lớp này hiện chưa có sinh viên nào.
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

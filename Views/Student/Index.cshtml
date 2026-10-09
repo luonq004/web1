@@ -1,0 +1,82 @@
+@model IEnumerable<Student>
+
+@{
+    // Layout = "~/Views/Shared/Layout2.cshtml";
+    ViewData["Title"] = "Danh sách sinh viên";
+}
+
+<h2>Danh sách sinh viên</h2>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">Create Student</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Ảnh đại diện</th>
+            <th>Họ tên</th>
+            <th>Ngày sinh</th>
+            <th>Ngành</th>
+            <th>Giới tính</th>
+            <th>Hệ ĐT</th>
+            <th>Địa chỉ</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.Id</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(s.Avatar))
+                    {
+                        <img src="@s.Avatar" style="width:45px; height:45px; object-fit:cover; border-radius:50%;" alt="Avatar" />
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Không có</span>
+                    }
+                </td>
+                <td>@s.Name</td>
+                <td>@s.DateOfBorth?.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                <td>
+                    @{
+                        string str = "";
+                        switch (s.Branch)
+                        {
+                            case Branch.IT:
+                                str = "CNTT";
+                                break;
+                            case Branch.BE:
+                                str = "Kinh tế";
+                                break;
+                            case Branch.CE:
+                                str = "Công trình";
+                                break;
+                            case Branch.EE:
+                                str = "Điện - Điện tử";
+                                break;
+                        }
+                    }
+                    @str
+                </td>
+                <td>@(s.Gender == Gender.Male ? "Nam" : "Nữ")</td>
+                <td>@(s.IsRegular ? "Chính quy" : "Phi chính quy")</td>
+                <td>@s.Address</td>
+                <td>@s.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        var table = document.querySelector("table");
+        table.onclick = function onTableClick() {
+            table.style = "background-color: yellow;"
+        }
+    </script>
+}

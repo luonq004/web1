@@ -1,0 +1,57 @@
+@using Lab2.Models
+@model IEnumerable<MenuItem>
+
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">Hệ thống</div>
+                <a class="nav-link" asp-controller="Home" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Trang chủ / Tổng quan
+                </a>
+
+                <div class="sb-sidenav-menu-heading">Quản lý đào tạo</div>
+                <a class="nav-link" asp-controller="Khoa" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-university text-primary"></i></div>
+                    Quản lý Khoa
+                </a>
+                <a class="nav-link" asp-controller="Lop" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-chalkboard-teacher text-success"></i></div>
+                    Quản lý Lớp
+                </a>
+                <a class="nav-link" asp-controller="SinhVien" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-graduate text-info"></i></div>
+                    Quản lý Sinh viên
+                </a>
+                <a class="nav-link" asp-controller="MonHoc" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-book-open text-warning"></i></div>
+                    Quản lý Môn học
+                </a>
+                <a class="nav-link" asp-controller="HocKy" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt text-secondary"></i></div>
+                    Quản lý Học kỳ
+                </a>
+                <a class="nav-link" asp-controller="LopHocPhan" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-layer-group text-primary"></i></div>
+                    Quản lý Lớp học phần
+                </a>
+                <a class="nav-link" asp-controller="DangKyMon" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list text-success"></i></div>
+                    Đăng ký môn
+                </a>
+                <a class="nav-link" asp-controller="Diem" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-star text-danger"></i></div>
+                    Quản lý Điểm
+                </a>
+                <a class="nav-link" asp-controller="Gpa" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-graduation-cap text-warning"></i></div>
+                    Tính GPA & Xếp loại
+                </a>
+            </div>
+        </div>
+        <div class="sb-sidenav-footer">
+            <div class="small">Hệ thống QLSV - UTC</div>
+        </div>
+    </nav>
+</div>

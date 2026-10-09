@@ -1,0 +1,80 @@
+@{
+    ViewData["Title"] = "Dashboard - Tổng quan";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-tachometer-alt me-2 text-primary"></i>Tổng Quan Hệ Thống</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Hệ thống Quản lý Đào tạo Sinh viên</li>
+    </ol>
+
+    <div class="row">
+        <!-- Card Khoa -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card bg-primary text-white h-100 shadow-sm">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-uppercase small fw-bold">Tổng số Khoa</div>
+                        <div class="fs-2 fw-bold">@ViewBag.CountKhoa</div>
+                    </div>
+                    <i class="fas fa-university fa-3x opacity-50"></i>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between bg-primary-subtle text-primary">
+                    <a class="small text-white stretched-link text-decoration-none" asp-controller="Khoa" asp-action="Index">Xem danh sách</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Lớp -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card bg-success text-white h-100 shadow-sm">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-uppercase small fw-bold">Tổng số Lớp</div>
+                        <div class="fs-2 fw-bold">@ViewBag.CountLop</div>
+                    </div>
+                    <i class="fas fa-chalkboard-teacher fa-3x opacity-50"></i>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link text-decoration-none" asp-controller="Lop" asp-action="Index">Xem danh sách</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Sinh Viên -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card bg-info text-white h-100 shadow-sm">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-uppercase small fw-bold">Tổng số Sinh viên</div>
+                        <div class="fs-2 fw-bold">@ViewBag.CountSinhVien</div>
+                    </div>
+                    <i class="fas fa-user-graduate fa-3x opacity-50"></i>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link text-decoration-none" asp-controller="SinhVien" asp-action="Index">Xem danh sách</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Môn Học -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card bg-warning text-dark h-100 shadow-sm">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-uppercase small fw-bold">Tổng số Môn học</div>
+                        <div class="fs-2 fw-bold">@ViewBag.CountMonHoc</div>
+                    </div>
+                    <i class="fas fa-book-open fa-3x opacity-50"></i>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-dark stretched-link text-decoration-none fw-semibold" asp-controller="MonHoc" asp-action="Index">Xem danh sách</a>
+                    <div class="small text-dark"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

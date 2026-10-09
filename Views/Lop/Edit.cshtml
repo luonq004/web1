@@ -1,0 +1,61 @@
+@model Lop
+
+@{
+    ViewData["Title"] = "Chỉnh sửa Lớp";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-edit text-warning me-2"></i>Chỉnh Sửa Lớp</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Quản lý Lớp</a></li>
+        <li class="breadcrumb-item active">Chỉnh sửa</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <i class="fas fa-chalkboard me-1"></i> Cập nhật thông tin Lớp
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="mb-3">
+                            <label asp-for="MaLop" class="form-label fw-bold"></label>
+                            <input asp-for="MaLop" class="form-control" />
+                            <span asp-validation-for="MaLop" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="TenLop" class="form-label fw-bold"></label>
+                            <input asp-for="TenLop" class="form-control" />
+                            <span asp-validation-for="TenLop" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="KhoaId" class="form-label fw-bold"></label>
+                            <select asp-for="KhoaId" class="form-select" asp-items="ViewBag.KhoaId"></select>
+                            <span asp-validation-for="KhoaId" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-1"></i> Quay lại
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i> Cập nhật
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

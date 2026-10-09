@@ -1,0 +1,48 @@
+@model Khoa
+
+@{
+    ViewData["Title"] = "Xóa Khoa";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-trash-alt text-danger me-2"></i>Xác Nhận Xóa Khoa</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Quản lý Khoa</a></li>
+        <li class="breadcrumb-item active">Xóa</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-md-6 col-lg-5">
+            <div class="card border-danger shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <i class="fas fa-exclamation-triangle me-1"></i> Cảnh báo: Bạn có chắc chắn muốn xóa khoa này?
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-muted">Mã khoa:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-primary fs-6">@Model.MaKhoa</span></dd>
+
+                        <dt class="col-sm-4 text-muted">Tên khoa:</dt>
+                        <dd class="col-sm-8 fw-bold">@Model.TenKhoa</dd>
+
+                        <dt class="col-sm-4 text-muted">Số lớp:</dt>
+                        <dd class="col-sm-8 text-danger fw-bold">@(Model.Lops?.Count ?? 0) lớp (sẽ bị xóa kèm nếu cascade)</dd>
+                    </dl>
+
+                    <form asp-action="Delete" class="mt-4">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-1"></i> Hủy bỏ
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash me-1"></i> Xác nhận Xóa
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

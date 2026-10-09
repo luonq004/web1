@@ -1,0 +1,37 @@
+@model Lab2.Models.Entities.HocKy
+@{
+    ViewData["Title"] = "Chi tiết Học kỳ";
+}
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-info-circle text-info me-2"></i>Chi tiết Học Kỳ</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Quản lý Học kỳ</a></li>
+        <li class="breadcrumb-item active">Chi tiết</li>
+    </ol>
+    <div class="row">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm border-info">
+                <div class="card-header bg-info text-white">
+                    <i class="fas fa-calendar-alt me-1"></i> Thông tin Học kỳ
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-muted">Năm học</dt>
+                        <dd class="col-sm-8 fw-bold">@Html.DisplayFor(model => model.NamHoc)</dd>
+                        <dt class="col-sm-4 text-muted">Kỳ</dt>
+                        <dd class="col-sm-8 fw-bold">Kỳ @Html.DisplayFor(model => model.Ky)</dd>
+                    </dl>
+                </div>
+                <div class="card-footer bg-light d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Quay lại
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning text-dark fw-bold">
+                        <i class="fas fa-edit me-1"></i> Cập nhật
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

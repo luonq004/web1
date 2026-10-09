@@ -1,0 +1,48 @@
+@model MonHoc
+
+@{
+    ViewData["Title"] = "Xóa Môn học";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-trash-alt text-danger me-2"></i>Xác Nhận Xóa Môn Học</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Quản lý Môn học</a></li>
+        <li class="breadcrumb-item active">Xóa</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-md-6 col-lg-5">
+            <div class="card border-danger shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <i class="fas fa-exclamation-triangle me-1"></i> Bạn có chắc chắn muốn xóa môn học này?
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-muted">Mã môn:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-secondary fs-6">@Model.MaMon</span></dd>
+
+                        <dt class="col-sm-4 text-muted">Tên môn:</dt>
+                        <dd class="col-sm-8 fw-bold">@Model.TenMon</dd>
+
+                        <dt class="col-sm-4 text-muted">Số tín chỉ:</dt>
+                        <dd class="col-sm-8 text-danger fw-bold">@Model.SoTinChi</dd>
+                    </dl>
+
+                    <form asp-action="Delete" class="mt-4">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-1"></i> Hủy bỏ
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash me-1"></i> Xác nhận Xóa
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

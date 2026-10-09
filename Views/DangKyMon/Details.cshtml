@@ -1,0 +1,41 @@
+@model Lab2.Models.Entities.DangKyMon
+@{
+    ViewData["Title"] = "Chi tiết Đăng ký môn";
+}
+<div class="container-fluid px-4">
+    <h1 class="mt-4"><i class="fas fa-info-circle text-info me-2"></i>Chi tiết Đăng Ký Môn</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Quản lý Đăng ký môn</a></li>
+        <li class="breadcrumb-item active">Chi tiết</li>
+    </ol>
+    <div class="row">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-info">
+                <div class="card-header bg-info text-white">
+                    <i class="fas fa-clipboard-list me-1"></i> Thông tin Đăng ký
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-muted">Sinh viên</dt>
+                        <dd class="col-sm-8 fw-bold">@Html.DisplayFor(model => model.SinhVien.HoTen) (@Html.DisplayFor(model => model.SinhVien.MaSv))</dd>
+                        <dt class="col-sm-4 text-muted">Môn học</dt>
+                        <dd class="col-sm-8 fw-bold text-primary">@Html.DisplayFor(model => model.LopHocPhan.MonHoc.TenMon)</dd>
+                        <dt class="col-sm-4 text-muted">Giảng viên</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.LopHocPhan.GiangVien)</dd>
+                        <dt class="col-sm-4 text-muted">Học kỳ</dt>
+                        <dd class="col-sm-8">Kỳ @Html.DisplayFor(model => model.LopHocPhan.HocKy.Ky) - Năm @Html.DisplayFor(model => model.LopHocPhan.HocKy.NamHoc)</dd>
+                    </dl>
+                </div>
+                <div class="card-footer bg-light d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Quay lại
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning text-dark fw-bold">
+                        <i class="fas fa-edit me-1"></i> Cập nhật
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
